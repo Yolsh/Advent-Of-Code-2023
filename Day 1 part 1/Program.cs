@@ -10,107 +10,48 @@ namespace Day_1_part_1
 {
     internal class Program
     {
-        struct ret
+        static string replace(string word)
         {
-            public int[] first;
-            public int[] last;
-        }
-        static ret WordConvert(string word)
-        {
-            ret final;
-            final.first = new int[2];
-            final.last = new int[2];
-            List<string> values = new List<string>();
-            List<int> indexes = new List<int>();
-            if (word.Contains("one"))
-            {
-                values.Add("1");
-                indexes.Add(word.IndexOf("one"));
-            }
-            if (word.Contains("two"))
-            {
-                values.Add("2");
-                indexes.Add(word.IndexOf("two"));
-            }
-            if (word.Contains("three"))
-            {
-                values.Add("3");
-                indexes.Add(word.IndexOf("three"));
-            }
-            if (word.Contains("four"))
-            {
-                values.Add("4");
-                indexes.Add(word.IndexOf("four"));
-            }
-            if (word.Contains("five"))
-            {
-                values.Add("5");
-                indexes.Add(word.IndexOf("five"));
-            }
-            if (word.Contains("six"))
-            {
-                values.Add("6");
-                indexes.Add(word.IndexOf("six"));
-            }
-            if (word.Contains("seven"))
-            {
-                values.Add("7");
-                indexes.Add(word.IndexOf("seven"));
-            }
-            if (word.Contains("eight"))
-            {
-                values.Add("8");
-                indexes.Add(word.IndexOf("eight"));
-            }
-            if (word.Contains("nine"))
-            {
-                values.Add("9");
-                indexes.Add(word.IndexOf("nine"));
-            }
-            final.first[0] = indexes.Min().ToString();
-            final.first[1] = values[indexes.IndexOf(int.Parse(final.first[0]))];
-            final.last[0] = indexes.Max().ToString();
-            final.first[1] = values[indexes.IndexOf(int.Parse(final.last[0]))];
-            return final;
-        }
-        static ret findNum(string word)
-        {
-            List<string> values = new List<string>();
-            List<int> indexes = new List<int>();
-
-            for (int i = 0; i < word.Length; i++)
-            {
-                try
-                {
-                    int.Parse(word[i].ToString());
-                    values.Add(word[i].ToString());
-                    indexes.Add(i);
-                }
-                catch { }
-            }
-            ret final;
-            final.first = new string[2];
-            final.last = new string[2];
-            final.first[0] = indexes.Min().ToString();
-            final.first[1] = values[indexes.IndexOf(int.Parse(final.first[0]))];
-            final.last[0] = indexes.Max().ToString();
-            final.first[1] = values[indexes.IndexOf(int.Parse(final.last[0]))];
-
-            return final;
+            word = word.Replace("oneight", "18");
+            word = word.Replace("twone", "21");
+            word = word.Replace("eightwo", "82");
+            word = word.Replace("eighthree", "83");
+            word = word.Replace("threeight", "38");
+            word = word.Replace("fiveight", "58");
+            word = word.Replace("sevenine", "79");
+            word = word.Replace("one", "1");
+            word = word.Replace("two", "2");
+            word = word.Replace("three", "3");
+            word = word.Replace("four", "4");
+            word = word.Replace("five", "5");
+            word = word.Replace("six", "6");
+            word = word.Replace("seven", "7");
+            word = word.Replace("eight", "8");
+            word = word.Replace("nine", "9");
+            return word;
         }
         static int comp(string word)
         {
-            if (findNum(word).first[0] > WordConvert(word).first[0])
-
-                if (output.Length == 1)
+            string output = "";
+            foreach(char letter in word)
+            {
+                try
                 {
-                    output += output;
+                    int.Parse(letter.ToString());
+                    output += letter;
                 }
-                else if (output.Length > 2)
-                {
-                    output = output[0] + output[output.Length - 1].ToString();
-                }
+                catch { }
+            }
+            if (output.Length == 1) 
+            {
+                output = output[0] + output[0].ToString();
+            }
+            else
+            {
+                output = output[0] + output[output.Length - 1].ToString();
+            }
             Console.WriteLine(output);
+            return int.Parse(output);
         }
         static void Main(string[] args)
         {
@@ -126,8 +67,7 @@ namespace Day_1_part_1
             for (int i = 0; i < file.Count; i++)
             {
                 Console.Write(i + ": ");
-                Console.WriteLine(WordConvert(file[i]));
-                sum += comp(file[i]);
+                sum += comp(replace(file[i]));
             }
             Console.WriteLine(sum);
             Console.ReadKey();
