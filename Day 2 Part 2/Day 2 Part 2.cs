@@ -34,7 +34,7 @@ namespace Day_2_Part_1
                     }
                     else { colours[i] = line[i + 2].ToString(); }
                 }
-            }
+            } 
             return colours;
         }
 
