@@ -51,14 +51,21 @@ namespace Day_3_Part_1
             int total = 1;
             for (int i = 0; i <= numbers.Count - 1; i++)
             {
-                if (numbers[i] == 608)
+                if (numbers[i] == 43)
                 {
 
                 }
                 if (Cont(numbers, numbers[i]) > 1)
                 {
-                    numbers.Remove(numbers[i]);
-                    numbers.Add(1); 
+                    if (numbers.Count == 2)
+                    {
+                        numbers.Insert(i, 0);
+                    }
+                    else
+                    {
+                        numbers.Insert(i, 1);
+                    }
+                    numbers.Remove(numbers[i + 1]);
                 }
             }
             Console.Write("[");

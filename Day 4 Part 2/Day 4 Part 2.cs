@@ -35,12 +35,11 @@ namespace Day_4_Part_1
             return OurNums;
         }
 
-        static int compare(string line, bool MatchReturn)
+        static int compare(string line)
         {
             int[] WinningNums = WinningNumAll(line);
             int[] OurNums = OurNumAll(line);
             int matches = 0;
-            int Points = 0;
 
             foreach (int num in WinningNums)
             {
@@ -48,19 +47,6 @@ namespace Day_4_Part_1
                 {
                     matches++;
                 }
-            }
-            if (matches == 1)
-            {
-                Points = 1;
-            }
-            else if (matches > 1)
-            {
-                Points = 1;
-                Points = Points * (int)Math.Pow(2, matches - 1);
-            }
-            else
-            {
-                Points = 0;
             }
 
             foreach (int num in WinningNums)
@@ -73,36 +59,20 @@ namespace Day_4_Part_1
                 //Console.Write($"{num} ");
             }
             //Console.Write($" Matches: {matches}, Points: {Points}");
-            if (MatchReturn)
-            {
-                return matches;
-            }
-            return Points;
+            return matches;
         }
 
-        static List<string> MakeCopies(List<string> file, string line, int LineNum)
+        static int recursiveGames(List<string> file, int LineNum)
         {
-            int matches = compare(line, true);
-            List<string> fileNew = new List<string>();
-            for (int i = 0; i < file.Count; i++)
-            {
-                fileNew.Add(file[i]);
-            }
+            int answer = 0;
+            int matches = compare(file[LineNum]);
             for (int i = 0; i < matches; i++)
             {
-                fileNew.Insert(LineNum + i + 1, file[LineNum + i + MatchesLast + 1]);
+                answer += recursiveGames(file, LineNum+=i);
             }
-            MatchesLast = matches;
-            return fileNew;
-        }
-
-        static void ShowFile(List<string> file)
-        {
-            foreach (string Line in file)
-            {
-                Console.WriteLine(Line);
-            }
-            Console.WriteLine("\n");
+            answer++;
+            Console.WriteLine(answer);
+            return answer;
         }
 
         static void Main(string[] args)
@@ -115,18 +85,12 @@ namespace Day_4_Part_1
                     file.Add(sr.ReadLine());
                 }
             }
-            for (int line = 0; line < file.Count; line++)
+            int sum = 0;
+            for(int x = 0; x < file.Count; x++)
             {
-                List<string> fileNew = MakeCopies(file, file[line], line);
-                file = new List<string>();
-                for (int i = 0; i < fileNew.Count; i++)
-                {
-                    file.Add(fileNew[i]);
-                }
-                Console.WriteLine($" file {line}: ");
-                ShowFile(file);
+                sum += recursiveGames(file, x);
             }
-            Console.WriteLine($"answer: {file.Count}");
+            Console.WriteLine($"answer: {sum}");
             Console.ReadKey();
         }
     }
