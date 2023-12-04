@@ -13,9 +13,9 @@ namespace Day_4_Part_1
         static int MatchesLast = 0;
         static int[] WinningNumAll(string line)
         {
-            int[] WinningNums = new int[5];
+            int[] WinningNums = new int[10];
             int pointer = 0;
-            for (int i = 8; i < 21; i += 3)
+            for (int i = 10; i < 38; i += 3)
             {
                 WinningNums[pointer] = int.Parse(line[i] + line[i + 1].ToString());
                 pointer++;
@@ -25,9 +25,9 @@ namespace Day_4_Part_1
 
         static int[] OurNumAll(string line)
         {
-            int[] OurNums = new int[8];
+            int[] OurNums = new int[25];
             int pointer = 0;
-            for (int i = 25; i < line.Length - 1; i += 3)
+            for (int i = 42; i < line.Length - 1; i += 3)
             {
                 OurNums[pointer] = int.Parse(line[i] + line[i + 1].ToString());
                 pointer++;
@@ -68,10 +68,9 @@ namespace Day_4_Part_1
             int matches = compare(file[LineNum]);
             for (int i = 0; i < matches; i++)
             {
-                answer += recursiveGames(file, LineNum+=i);
+                answer += recursiveGames(file, LineNum+i+1);
             }
             answer++;
-            Console.WriteLine(answer);
             return answer;
         }
 
@@ -89,6 +88,7 @@ namespace Day_4_Part_1
             for(int x = 0; x < file.Count; x++)
             {
                 sum += recursiveGames(file, x);
+                Console.WriteLine($"Line: {x + 1}");
             }
             Console.WriteLine($"answer: {sum}");
             Console.ReadKey();
