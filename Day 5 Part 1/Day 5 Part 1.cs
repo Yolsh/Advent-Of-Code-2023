@@ -47,11 +47,24 @@ namespace Day_5_Part_1
             {
                 foreach (List<int> points in Map)
                 {
-                    if (Location >= points[0] && (Location > points[0] && Location < points[1]))
+                    bool modify = false;
+                    for (int i = 0; i < points[2]; i++)
+                    {
+                        if (Location == points[1] + i)
+                        {
+                            Location = points[1] + i;
+                            Console.Write($"{seed}: {Location}, ");
+                        }
+                        else if (Location >= points[0] + i)
+                        {
+                            modify = true;
+                            Console.Write($"{seed}: {Location}, ");
+                        }
+                    }
+                    if (modify)
                     {
                         Location += points[2];
                     }
-                    Console.Write($"{seed}: {Location}, ");
                 }
             }
             return Location;
