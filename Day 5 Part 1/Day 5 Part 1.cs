@@ -10,18 +10,18 @@ namespace Day_5_Part_1
 {
     internal class Program
     {
-        static List<int> GetSeedNums(string Line)
+        static List<long> GetSeedNums(string Line)
         {
-            List<int> output = new List<int>();
+            List<long> output = new List<long>();
             Regex re = new Regex("\\d+");
             MatchCollection match = re.Matches(Line);
             foreach (Match num in match)
             {
-                output.Add(int.Parse(num.ToString()));
+                output.Add(long.Parse(num.ToString()));
             }
             return output;
         }
-        static List<List<int>> FindMap(List<string> Lines)
+        static List<List<long>> FindMap(List<string> Lines)
         {
             string input = "";
             foreach (string Line in Lines)
@@ -29,52 +29,41 @@ namespace Day_5_Part_1
                 input += Line;
                 input += " ";
             }
-            List<List<int>> output = new List<List<int>>();
+            List<List<long>> output = new List<List<long>>();
             Regex re = new Regex(@"\d+\s");
             MatchCollection Allmatches = re.Matches(input);
             for(int i = 0; i < Allmatches.Count; i+=3)
             {
-                List<int> temp = new List<int> { int.Parse(Allmatches[i].ToString()), int.Parse(Allmatches[i + 1].ToString()), int.Parse(Allmatches[i + 2].ToString()) };
+                List<long> temp = new List<long> { long.Parse(Allmatches[i].ToString()), long.Parse(Allmatches[i + 1].ToString()), long.Parse(Allmatches[i + 2].ToString()) };
                 output.Add(temp);
             }
             return output;
         }
 
-        static int ApplyMap(List<List<List<int>>> Maps, int seed) // this will need modifying as it probs doesnt work
+        static long ApplyMap(List<List<List<long>>> Maps, long seed) // this will need modifying as it probs doesnt work
         {
-            int Location = seed;
-            foreach (List<List<int>> Map in Maps)
+            long Location = seed;
+            foreach (List<List<long>> Map in Maps)
             {
-                foreach (List<int> points in Map)
+                foreach (List<long> points in Map)
                 {
-                    for (int i = 0; i < points[2]; i++)
+                    if (Location > points[1] && Location < points[1] + points[2])
                     {
-                        if (Location >= points[0])
-                        {
-                            if (Location == points[1] + i)
-                            {
-                                Location = points[0] + i;
-                                break;
-                            }
-                            else
-                            {
-                                Location += points[2];
-                                break;
-                            }
-                        }
+                        Location += points[0] - points[1];
                     }
                 }
             }
+            Console.WriteLine($"{seed}: {Location}");
             return Location;
         }
 
         static void Main(string[] args)
         {
             List<string> file = new List<string>();
-            List<int> seedNums = new List<int>();
+            List<long> seedNums = new List<long>();
             List<string> map = new List<string>();
-            List<List<List<int>>> Maps = new List<List<List<int>>>();
-            List<int> Locations = new List<int>();
+            List<List<List<long>>> Maps = new List<List<List<long>>>();
+            List<long> Locations = new List<long>();
             using (StreamReader sr = new StreamReader("input.txt"))
             {
                 while (!sr.EndOfStream)
@@ -98,7 +87,7 @@ namespace Day_5_Part_1
                     map.Clear();
                 }
             }
-            foreach (int seed in seedNums)
+            foreach (long seed in seedNums)
             {
                 Locations.Add(ApplyMap(Maps, seed));
             }
