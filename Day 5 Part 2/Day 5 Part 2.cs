@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Day_5_Part_1
+namespace Day_5_Part_2
 {
     internal class Program
     {
@@ -50,12 +50,12 @@ namespace Day_5_Part_1
                     if (Location >= points[1] && Location < points[1] + points[2])
                     {
                         Location += points[0] - points[1];
-                        Console.Write($"({points[0]}, {points[1]}, {points[2]}): {Location} | ");
+                        //Console.Write($"({points[0]}, {points[1]}, {points[2]}): {Location} | ");
                         break;
                     }
                 }
             }
-            Console.WriteLine($"{seed}: {Location}");
+            //Console.WriteLine($"{seed}: {Location}");
             return Location;
         }
 
@@ -89,24 +89,27 @@ namespace Day_5_Part_1
                     map.Clear();
                 }
             }
-            seedNums = SeedIncrease(seedNums);
-            foreach (long seed in seedNums)
+            for (int i = 0; i < seedNums.Count; i+=2)
             {
-                Locations.Add(ApplyMap(Maps, seed));
+                List<long> SeedsEnum = SeedIncrease(seedNums[i], seedNums[i + 1]);
+                List<long> LocationsPerSeedRange = new List<long>();
+                foreach (long seed in SeedsEnum)
+                {
+                    LocationsPerSeedRange.Add(ApplyMap(Maps, seed));
+                }
+                Console.Write($"{seedNums}: {LocationsPerSeedRange.Min()}, ");
+                Locations.Add(LocationsPerSeedRange.Min());
             }
             Console.WriteLine($"Answer: {Locations.Min()}");
             Console.ReadKey();
         }
 
-        static List<long> SeedIncrease(List<long> InitialSeedNums)
+        static List<long> SeedIncrease(long InitialSeedNum, long SeedNumEnumerator)
         {
             List<long> output = new List<long>();
-            for (int i = 0; i < InitialSeedNums.Count; i+=2)
+            for (long j = InitialSeedNum; j < InitialSeedNum + SeedNumEnumerator; j++)
             {
-                for (long j = InitialSeedNums[i]; j < InitialSeedNums[i] + InitialSeedNums[i+1]; j++)
-                {
-                    output.Add(j);
-                }
+                output.Add(j);
             }
             return output;
         }
