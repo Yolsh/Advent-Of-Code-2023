@@ -45,24 +45,13 @@ namespace Day_5_Part_1
             long Location = seed;
             foreach (List<List<long>> Map in Maps)
             {
-                foreach(List<long> Points in Map)
-                {
-                    foreach (long point in Points)
-                    {
-                        Console.Write($"{point}, ");
-                    }
-                    Console.WriteLine();
-                }
-                Console.WriteLine();
-            }
-            foreach (List<List<long>> Map in Maps)
-            {
                 foreach (List<long> points in Map)
                 {
-                    if (Location > points[1] && Location < points[1] + points[2])
+                    if (Location >= points[1] && Location < points[1] + points[2])
                     {
                         Location += points[0] - points[1];
                         Console.Write($"({points[0]}, {points[1]}, {points[2]}): {Location} | ");
+                        break;
                     }
                 }
             }
