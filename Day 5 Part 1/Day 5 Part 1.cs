@@ -30,7 +30,7 @@ namespace Day_5_Part_1
                 input += " ";
             }
             List<List<long>> output = new List<List<long>>();
-            Regex re = new Regex(@"\d+\s");
+            Regex re = new Regex(@"[0-9]+\s");
             MatchCollection Allmatches = re.Matches(input);
             for(int i = 0; i < Allmatches.Count; i+=3)
             {
