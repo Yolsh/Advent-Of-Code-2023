@@ -91,14 +91,8 @@ namespace Day_5_Part_2
             }
             for (int i = 0; i < seedNums.Count; i+=2)
             {
-                List<long> SeedsEnum = SeedIncrease(seedNums[i], seedNums[i + 1]);
-                List<long> LocationsPerSeedRange = new List<long>();
-                foreach (long seed in SeedsEnum)
-                {
-                    LocationsPerSeedRange.Add(ApplyMap(Maps, seed));
-                }
-                Console.Write($"{seedNums}: {LocationsPerSeedRange.Min()}, ");
-                Locations.Add(LocationsPerSeedRange.Min());
+
+                Locations.Add(LocationsPerSeedRange(Maps, seedNums, i).Min());
             }
             Console.WriteLine($"Answer: {Locations.Min()}");
             Console.ReadKey();
@@ -112,6 +106,21 @@ namespace Day_5_Part_2
                 output.Add(j);
             }
             return output;
+        }
+        static List<long> LocationsPerSeedRange(List<List<List<long>>> Maps, List<long> seedNums, int i)
+        {
+            List<long> SeedsEnum = SeedIncrease(seedNums[i], seedNums[i + 1]);
+            List<long> LocationsPerSeedRange = new List<long>();
+            if (seedNums.Count == i)
+            {
+
+            }
+            foreach (long seed in SeedsEnum)
+            {
+                LocationsPerSeedRange.Add(ApplyMap(Maps, seed));
+            }
+            Console.Write($"{seedNums}: {LocationsPerSeedRange.Min()}, ");
+            return LocationsPerSeedRange;
         }
     }
 }
