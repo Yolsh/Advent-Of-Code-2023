@@ -10,6 +10,7 @@ namespace Day_7_Part_2
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

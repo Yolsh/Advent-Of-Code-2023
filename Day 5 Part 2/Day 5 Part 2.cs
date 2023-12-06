@@ -111,8 +111,10 @@ namespace Day_5_Part_2
         {
             List<long> SeedsEnum = SeedIncrease(seedNums[i], seedNums[i + 1]);
             List<long> LocationsPerSeedRange = new List<long>();
+            List<long> temp = new List<long>();
             foreach (long seed in SeedsEnum)
             {
+                for (int i = 0; )
                 LocationsPerSeedRange.Add(ApplyMap(Maps, seed));
             }
             Console.Write($"{seedNums}: {LocationsPerSeedRange.Min()}, ");
