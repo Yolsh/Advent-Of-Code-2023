@@ -111,10 +111,6 @@ namespace Day_5_Part_2
         {
             List<long> SeedsEnum = SeedIncrease(seedNums[i], seedNums[i + 1]);
             List<long> LocationsPerSeedRange = new List<long>();
-            if (seedNums.Count == i)
-            {
-
-            }
             foreach (long seed in SeedsEnum)
             {
                 LocationsPerSeedRange.Add(ApplyMap(Maps, seed));
